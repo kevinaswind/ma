@@ -1,11 +1,11 @@
 <div>
     @if($success)
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        The profile has been updated successfully!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            The profile has been updated successfully!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     @endif
     <form wire:submit.prevent="updateProfile">
         @csrf
@@ -17,6 +17,7 @@
                 <input id="first_name" type="text"
                        class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name"
                        wire:model.defer="first_name" required autofocus>
+                <button type="button" class="btn btn-info" wire:click="checkName">Check Name</button>
 
                 @if ($errors->has('first_name'))
                     <span class="invalid-feedback" role="alert">
@@ -32,7 +33,7 @@
             <div class="col-md-6">
                 <input id="last_name" type="text"
                        class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name"
-                       wire:model.defer="last_name" required autofocus>
+                       wire:model.defer="last_name" wire:keydown="checkName" required autofocus>
 
                 @if ($errors->has('last_name'))
                     <span class="invalid-feedback" role="alert">
@@ -55,6 +56,17 @@
                                     </span>
                 @endif
             </div>
+        </div>
+
+        <div class="form-group row">
+            <button type="button" class="btn btn-outline-warning" wire:click="$toggle('showHelp')">Show / Hide Help</button>
+            @if($showHelp)
+                <div>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aspernatur consequuntur cumque
+                    earum enim esse impedit in incidunt ipsam magnam necessitatibus neque odit quasi, repellat saepe
+                    sapiente voluptatibus. Error, sed.
+                </div>
+            @endif
         </div>
 
         <div class="form-group row mb-0">

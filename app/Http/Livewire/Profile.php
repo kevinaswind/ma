@@ -10,14 +10,13 @@ class Profile extends Component
     public $last_name = '';
     public $company = '';
     public $success = false;
+    public $showHelp = false;
 
     protected $rules = [
         'first_name' => 'required|min:3',
         'last_name' => 'required|min:3',
         'company' => 'required|min:3',
     ];
-
-
 
     public function updateProfile()
     {
@@ -29,7 +28,15 @@ class Profile extends Component
             'company' => $this->company,
         ]);
 
+        $this->emit('profileUpdated');
         $this->success = true;
+    }
+
+    public function checkName()
+    {
+        $this->validate([
+            'first_name' => 'min:3'
+        ]);
     }
 
     public function render()
