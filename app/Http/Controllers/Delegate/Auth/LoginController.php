@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Delegate\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -20,14 +21,15 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+//    use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/delegate';
+
+    protected $redirectTo = "/delegate";
 
     /**
      * Create a new controller instance.
@@ -59,6 +61,29 @@ class LoginController extends Controller
         return view('delegate.auth.login');
     }
 
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+//        dd($credentials);
+        if ($this->guard()->attempt($credentials)) {
+            // Authentication passed...
+//            dd(auth('delegate')->user()->channel);
+            if(auth('delegate')->user()->channel == 'foreign'){
+                App::setLocale('en');
+                session([
+                    'locale' => 'en'
+                ]);
+            }else{
+                App::setLocale('zh');
+                session([
+                    'locale' => 'zh'
+                ]);
+            }
+            return redirect('/delegate');
+        }
+    }
+
     /**
      * Log the user out of the application.
      *
@@ -67,12 +92,14 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-
+        $lang = session()->get('locale');
         $this->guard()->logout();
 
         $request->session()->flush();
 
         $request->session()->regenerate();
+
+        session()->put('locale', $lang);
 
         return redirect($this->redirectTo);
     }

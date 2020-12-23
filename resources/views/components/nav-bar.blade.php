@@ -18,9 +18,9 @@
 
                 <!-- Right Side Of Navbar -->
                 @if(app()->getLocale() == 'en')
-                    <x-foreign-nav-bar />
+                <x-foreign-nav-bar />
                 @else
-                    <x-local-nav-bar />
+                <x-local-nav-bar />
                 @endif
             </div>
         </div>

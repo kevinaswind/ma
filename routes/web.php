@@ -17,4 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', function (){
+    App::setLocale(request()->lang);
+    session()->put('locale', request()->lang);
+    return redirect()->route('delegate.login');
+
+});
+
 Route::view('/papers', 'papers.index')->name('papers.index');

@@ -61,6 +61,10 @@ class Delegate extends Authenticatable
 
     public function getFullNameAttribute()
     {
+        if($this->channel == 'local'){
+            return $this->last_name . $this->first_name;
+        }
+
         return $this->first_name . ' ' . $this->last_name;
     }
 

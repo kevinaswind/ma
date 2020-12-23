@@ -10,7 +10,10 @@ class NavBar extends Component
 
     public function getFullName()
     {
-        return $this->name = auth('delegate')->user()->full_name;
+        if(auth('delegate')->user()){
+            return $this->name = auth('delegate')->user()->full_name;
+        }
+
     }
 
     public function mount()

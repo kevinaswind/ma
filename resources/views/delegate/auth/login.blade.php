@@ -8,6 +8,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    {{ App::getLocale() }}
                     <form method="POST" action="{{ route('delegate.login') }}" aria-label="{{ __('Login') }}">
                         @csrf
 

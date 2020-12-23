@@ -49,8 +49,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapDelegateRoutes();
 
         //
-    }    
-    
+    }
+
     /**
      * Define the "delegate" routes for the application.
      *
