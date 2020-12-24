@@ -80,7 +80,7 @@ class LoginController extends Controller
                     'locale' => 'zh'
                 ]);
             }
-            return redirect('/delegate');
+            return redirect($this->redirectTo);
         }
     }
 
